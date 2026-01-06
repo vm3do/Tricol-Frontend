@@ -103,11 +103,96 @@ export class CoreModule { }
 
 **Purpose:** Container for reusable UI components (Header, Sidebar, Modals, etc.)
 
-**Commit:** `feat: add shared module for reusable components`
+---
+
+## 🔧 Day 2 - January 6, 2026
+
+### Step 5: Tailwind CSS Setup (09:17:42)
+
+**Installed Packages:**
+- `tailwindcss@^3` - Utility-first CSS framework
+- `postcss` - CSS transformation tool
+- `autoprefixer` - Auto-add vendor prefixes
+
+**Files Created:**
+- `tailwind.config.js` - Tailwind configuration
+- `postcss.config.js` - PostCSS configuration
+
+**Global Styles Updated:**
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+**Why Tailwind?**
+- Utility-first approach (no custom CSS needed)
+- Responsive design built-in
+- Consistent design system
+- Faster development with pre-built classes
+
+**Commit:** `chore: setup Tailwind CSS` (09:17:42)
 
 ---
 
-### Step 4: Core Services & Authentication (10:31:27 - 11:02:38)
+### Step 6: Auth Feature Module (10:34:18 - 14:55:33)
+
+**Components Created:**
+1. Login Component
+2. Register Component
+
+**Login Component Features:**
+```typescript
+- Reactive Form with validation
+- Email + Password fields
+- Error handling (401, network errors)
+- Loading states
+- Redirect after successful login
+- Link to register page
+```
+
+**Register Component Features:**
+```typescript
+- Reactive Form with validation
+- Full Name, Email, Password, Confirm Password
+- Password matching validation
+- Success message with auto-redirect
+- Link to login page
+```
+
+**Tailwind Styling:**
+```html
+- Gradient background (indigo to purple)
+- White card with shadow
+- Responsive design
+- Focus states on inputs
+- Error states (red borders)
+- Disabled button states
+```
+
+**Routing Configuration:**
+```typescript
+/auth/login → LoginComponent
+/auth/register → RegisterComponent
+/ → redirect to /auth/login
+```
+
+**Key Angular 20 Features Used:**
+- `@if` control flow (instead of *ngIf)
+- `@for` control flow (instead of *ngFor)
+- Standalone components (no NgModule declarations)
+- Functional guards and interceptors
+- Signal-based reactivity ready
+
+**Commits:**
+- `feat: convert auth components to Tailwind CSS` (10:34:18)
+- `chore: clean up app template` (11:48:55)
+- `fix: configure Tailwind PostCSS plugin for Angular` (14:22:09)
+- `fix: downgrade to Tailwind v3 for Angular compatibility` (14:55:33)
+
+---
+
+## 📖 Angular CLI Quick Reference
 
 **Components Created:**
 1. User Model (`user.model.ts`)
