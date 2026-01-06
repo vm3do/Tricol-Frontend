@@ -37,14 +37,31 @@ export class LoginComponent {
 
     this.authService.login(this.loginForm.value).subscribe({
       next: () => {
+        this.loading = false;
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
         this.router.navigate([returnUrl]);
       },
       error: (error) => {
-        this.errorMessage = error.error?.message || 'Login failed. Please check your credentials.';
-        this.loading = false;
-      },
-      complete: () => {
+        console.log('Login error:', error);
+
+        if (error.status === 401) {
+          this.errorMessage = 'Email ou mot de passe incorrect';
+        } else if (error.status === 400) {
+          if (error.error?.message) {
+            this.errorMessage = error.error.message;
+          } else {
+            this.errorMessage = 'Données invalides. Veuillez vérifier vos informations.';
+          }
+        } else if (error.status === 403) {
+          this.errorMessage = 'Accès refusé. Votre compte peut être désactivé.';
+        } else if (error.status === 500) {
+          this.errorMessage = 'Erreur serveur. Veuillez réessayer plus tard.';
+        } else if (error.status === 0) {
+          this.errorMessage = 'Impossible de contacter le serveur. Vérifiez votre connexion.';
+        } else {
+          this.errorMessage = error.error?.message || 'Une erreur est survenue lors de la connexion.';
+        }
+
         this.loading = false;
       }
     });
