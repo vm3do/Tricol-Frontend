@@ -189,6 +189,25 @@ export class CoreModule { }
 - `chore: clean up app template` (11:48:55)
 - `fix: configure Tailwind PostCSS plugin for Angular` (14:22:09)
 - `fix: downgrade to Tailwind v3 for Angular compatibility` (14:55:33)
+- `fix: clean app.html template to only contain router outlet` (15:12:44)
+- `feat: redesign auth pages with professional stock management theme and fix router links` (16:38:22)
+
+**Bugs Fixed (16:38:22):**
+1. **RouterLink not working** - Added `RouterLink` to component imports
+2. **Registration success not showing** - Fixed backend response type (text instead of JSON)
+3. **Poor color scheme** - Changed from purple/indigo to amber/orange (stock management theme)
+4. **Missing icons** - Added inline SVG icons for better UX
+5. **French translation** - Converted all text to French for TRICOL users
+
+**New Design Features:**
+- Amber/Orange gradient background (warm, professional)
+- Stock management icon (box/warehouse) in logo
+- Input fields with left-side icons
+- Better error/success messages with icons
+- Smooth hover animations on buttons
+- Professional shadow and border effects
+- Mobile-responsive design maintained
+- Copyright footer
 
 ---
 

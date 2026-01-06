@@ -35,7 +35,7 @@ export class RegisterComponent {
     }
 
     if (this.registerForm.value.password !== this.registerForm.value.confirmPassword) {
-      this.errorMessage = 'Passwords do not match';
+      this.errorMessage = 'Les mots de passe ne correspondent pas';
       return;
     }
 
@@ -46,17 +46,30 @@ export class RegisterComponent {
     const { confirmPassword, ...registerData } = this.registerForm.value;
 
     this.authService.register(registerData).subscribe({
-      next: () => {
-        this.successMessage = 'Registration successful! Redirecting to login...';
-        setTimeout(() => {
-          this.router.navigate(['/auth/login']);
-        }, 2000);
-      },
-      error: (error) => {
-        this.errorMessage = error.error?.message || 'Registration failed. Please try again.';
+      next: (response) => {
+        this.successMessage = 'Compte créé avec succès ! Vous pouvez maintenant vous connecter.';
+        this.registerForm.reset();
         this.loading = false;
       },
-      complete: () => {
+      error: (error) => {
+        console.log('Registration error:', error);
+
+        if (error.status === 409) {
+          this.errorMessage = error.error?.message || 'Cette adresse email est déjà utilisée';
+        } else if (error.status === 400) {
+          if (error.error?.message) {
+            this.errorMessage = error.error.message;
+          } else {
+            this.errorMessage = 'Données invalides. Veuillez vérifier vos informations.';
+          }
+        } else if (error.status === 500) {
+          this.errorMessage = 'Erreur serveur. Veuillez réessayer plus tard.';
+        } else if (error.status === 0) {
+          this.errorMessage = 'Impossible de contacter le serveur. Vérifiez votre connexion.';
+        } else {
+          this.errorMessage = error.error?.message || 'Une erreur est survenue lors de l\'inscription.';
+        }
+
         this.loading = false;
       }
     });
