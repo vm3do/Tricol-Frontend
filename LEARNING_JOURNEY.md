@@ -107,7 +107,69 @@ export class CoreModule { }
 
 ---
 
-**Command Structure:**
+### Step 4: Core Services & Authentication (10:31:27 - 11:02:38)
+
+**Components Created:**
+1. User Model (`user.model.ts`)
+2. TokenService (`token.ts`)
+3. AuthService (`auth.ts`)
+4. JWT Interceptor (`jwt-interceptor.ts`)
+5. Error Interceptor (`error-interceptor.ts`)
+6. Auth Guard (`auth-guard.ts`)
+
+**Key Implementation Details:**
+
+**TokenService:**
+```typescript
+setAccessToken(token: string): void
+getAccessToken(): string | null
+isTokenExpired(token: string): boolean
+hasValidToken(): boolean
+```
+- Stores JWT tokens in localStorage
+- Validates token expiration by decoding JWT payload
+- Provides helper methods for token management
+
+**AuthService:**
+```typescript
+login(credentials: LoginRequest): Observable<AuthResponse>
+register(data: RegisterRequest): Observable<string>
+logout(): void
+isAuthenticated(): boolean
+```
+- Uses RxJS BehaviorSubject for reactive user state
+- Integrates with TokenService for token storage
+- Makes HTTP calls to backend `/api/auth` endpoints
+
+**JWT Interceptor:**
+- Automatically adds `Authorization: Bearer <token>` header to all HTTP requests
+- Checks token validity before adding to request
+
+**Error Interceptor:**
+- Catches 401 errors → Logout and redirect to login
+- Catches 403 errors → Log access denied
+- Global error handling for all HTTP requests
+
+**Auth Guard:**
+- Protects routes requiring authentication
+- Redirects to login with returnUrl parameter
+- Uses functional guard pattern (Angular 20 style)
+
+**App Configuration:**
+```typescript
+provideHttpClient(
+  withInterceptors([jwtInterceptor, errorInterceptor])
+)
+```
+
+**Commits:**
+- `feat: add core services and interceptors for authentication` (10:31:27)
+- `feat: add auth guard for route protection` (10:45:52)
+- `chore: configure HTTP client with interceptors` (11:02:38)
+
+---
+
+## 📖 Angular CLI Quick Reference
 ```bash
 ng generate <schematic> <name> [options]
 ```
