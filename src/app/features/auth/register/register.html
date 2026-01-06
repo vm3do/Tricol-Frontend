@@ -1,20 +1,21 @@
-<div class="register-container">
-  <div class="register-card">
-    <h1>TRICOL</h1>
-    <h2>Register</h2>
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">
+  <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
+    <h1 class="text-3xl font-bold text-center text-indigo-600 mb-2">TRICOL</h1>
+    <h2 class="text-2xl text-center text-gray-800 mb-8">Register</h2>
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="fullName">Full Name</label>
+      <div class="mb-4">
+        <label for="fullName" class="block text-gray-700 font-medium mb-2">Full Name</label>
         <input
           id="fullName"
           type="text"
           formControlName="fullName"
           placeholder="Enter your full name"
-          [class.error]="fullName?.invalid && fullName?.touched"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          [class.border-red-500]="fullName?.invalid && fullName?.touched"
         />
         @if (fullName?.invalid && fullName?.touched) {
-          <span class="error-message">
+          <span class="block text-red-500 text-sm mt-1">
             @if (fullName?.errors?.['required']) {
               Full name is required
             }
@@ -25,17 +26,18 @@
         }
       </div>
 
-      <div class="form-group">
-        <label for="email">Email</label>
+      <div class="mb-4">
+        <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
         <input
           id="email"
           type="email"
           formControlName="email"
           placeholder="Enter your email"
-          [class.error]="email?.invalid && email?.touched"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          [class.border-red-500]="email?.invalid && email?.touched"
         />
         @if (email?.invalid && email?.touched) {
-          <span class="error-message">
+          <span class="block text-red-500 text-sm mt-1">
             @if (email?.errors?.['required']) {
               Email is required
             }
@@ -46,17 +48,18 @@
         }
       </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
+      <div class="mb-4">
+        <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
         <input
           id="password"
           type="password"
           formControlName="password"
           placeholder="Enter your password"
-          [class.error]="password?.invalid && password?.touched"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          [class.border-red-500]="password?.invalid && password?.touched"
         />
         @if (password?.invalid && password?.touched) {
-          <span class="error-message">
+          <span class="block text-red-500 text-sm mt-1">
             @if (password?.errors?.['required']) {
               Password is required
             }
@@ -67,30 +70,31 @@
         }
       </div>
 
-      <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
+      <div class="mb-6">
+        <label for="confirmPassword" class="block text-gray-700 font-medium mb-2">Confirm Password</label>
         <input
           id="confirmPassword"
           type="password"
           formControlName="confirmPassword"
           placeholder="Confirm your password"
-          [class.error]="confirmPassword?.invalid && confirmPassword?.touched"
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          [class.border-red-500]="confirmPassword?.invalid && confirmPassword?.touched"
         />
         @if (confirmPassword?.invalid && confirmPassword?.touched) {
-          <span class="error-message">
+          <span class="block text-red-500 text-sm mt-1">
             Please confirm your password
           </span>
         }
       </div>
 
       @if (errorMessage) {
-        <div class="alert alert-error">
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-4">
           {{ errorMessage }}
         </div>
       }
 
       @if (successMessage) {
-        <div class="alert alert-success">
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-4">
           {{ successMessage }}
         </div>
       }
@@ -98,7 +102,7 @@
       <button
         type="submit"
         [disabled]="registerForm.invalid || loading"
-        class="btn-primary"
+        class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
       >
         @if (loading) {
           <span>Registering...</span>
@@ -108,9 +112,10 @@
       </button>
     </form>
 
-    <p class="login-link">
-      Already have an account? <a routerLink="/auth/login">Login here</a>
+    <p class="text-center mt-6 text-gray-600">
+      Already have an account? <a routerLink="/auth/login" class="text-indigo-600 font-semibold hover:underline">Login here</a>
     </p>
   </div>
 </div>
+
 
