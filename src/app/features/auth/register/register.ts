@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -16,9 +16,9 @@ export class RegisterComponent {
   private readonly router = inject(Router);
 
   registerForm: FormGroup;
-  loading = false;
-  errorMessage = '';
-  successMessage = '';
+  loading = signal(false);
+  errorMessage = signal('');
+  successMessage = signal('');
 
   constructor() {
     this.registerForm = this.fb.group({
@@ -35,42 +35,39 @@ export class RegisterComponent {
     }
 
     if (this.registerForm.value.password !== this.registerForm.value.confirmPassword) {
-      this.errorMessage = 'Les mots de passe ne correspondent pas';
+      this.errorMessage.set('Les mots de passe ne correspondent pas');
       return;
     }
 
-    this.loading = true;
-    this.errorMessage = '';
-    this.successMessage = '';
+    this.loading.set(true);
+    this.errorMessage.set('');
+    this.successMessage.set('');
 
     const { confirmPassword, ...registerData } = this.registerForm.value;
 
     this.authService.register(registerData).subscribe({
       next: (response) => {
-        this.successMessage = 'Compte créé avec succès ! Vous pouvez maintenant vous connecter.';
+        this.successMessage.set('Compte créé avec succès ! Vous pouvez maintenant vous connecter.');
         this.registerForm.reset();
-        this.loading = false;
+        this.loading.set(false);
       },
       error: (error) => {
-        console.log('Registration error:', error);
+        let message = 'Une erreur est survenue lors de l\'inscription.';
 
         if (error.status === 409) {
-          this.errorMessage = error.error?.message || 'Cette adresse email est déjà utilisée';
+          message = error.error?.message || 'Cette adresse email est déjà utilisée';
         } else if (error.status === 400) {
-          if (error.error?.message) {
-            this.errorMessage = error.error.message;
-          } else {
-            this.errorMessage = 'Données invalides. Veuillez vérifier vos informations.';
-          }
+          message = error.error?.message || 'Données invalides. Veuillez vérifier vos informations.';
         } else if (error.status === 500) {
-          this.errorMessage = 'Erreur serveur. Veuillez réessayer plus tard.';
+          message = 'Erreur serveur. Veuillez réessayer plus tard.';
         } else if (error.status === 0) {
-          this.errorMessage = 'Impossible de contacter le serveur. Vérifiez votre connexion.';
-        } else {
-          this.errorMessage = error.error?.message || 'Une erreur est survenue lors de l\'inscription.';
+          message = 'Impossible de contacter le serveur. Vérifiez votre connexion.';
+        } else if (error.error?.message) {
+          message = error.error.message;
         }
 
-        this.loading = false;
+        this.errorMessage.set(message);
+        this.loading.set(false);
       }
     });
   }
