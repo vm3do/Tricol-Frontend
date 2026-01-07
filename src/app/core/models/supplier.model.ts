@@ -1,28 +1,29 @@
 export interface Supplier {
   id: number;
-  raisonSociale: string;
-  adresse: string;
-  ville: string;
-  personneContact: string;
+  companyName: string;
+  address: string;
+  city: string;
+  contactPerson: string;
   email: string;
-  telephone: string;
+  phone: string;
   ice: string;
   createdAt?: string;
   updatedAt?: string;
 }
 
 export interface SupplierCreateRequest {
-  raisonSociale: string;
-  adresse: string;
-  ville: string;
-  personneContact: string;
+  companyName: string;
+  address: string;
+  city: string;
+  contactPerson: string;
   email: string;
-  telephone: string;
+  phone: string;
   ice: string;
 }
 
 export interface SupplierUpdateRequest extends SupplierCreateRequest {
   id: number;
 }
+
 
 

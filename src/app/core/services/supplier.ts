@@ -9,13 +9,10 @@ import { Supplier, SupplierCreateRequest, SupplierUpdateRequest } from '../model
 })
 export class SupplierService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = `${environment.apiUrl}/fournisseurs`;
+  private readonly apiUrl = `${environment.apiUrl}/v1/suppliers`;
 
-  getAll(page: number = 0, size: number = 10): Observable<any> {
-    const params = new HttpParams()
-      .set('page', page.toString())
-      .set('size', size.toString());
-    return this.http.get<any>(this.apiUrl, { params });
+  getAll(): Observable<Supplier[]> {
+    return this.http.get<Supplier[]>(this.apiUrl);
   }
 
   getById(id: number): Observable<Supplier> {
