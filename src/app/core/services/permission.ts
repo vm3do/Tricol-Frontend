@@ -23,7 +23,6 @@ export class PermissionService {
       const payload = JSON.parse(atob(token.split('.')[1]));
       const permissions = payload.permissions || payload.authorities || [];
       this.cachedPermissions = permissions.map((p: string) => p.replace('ROLE_', ''));
-      console.log('User permissions:', this.cachedPermissions);
       return this.cachedPermissions;
     } catch (error) {
       console.error('Error parsing token for permissions:', error);
