@@ -31,15 +31,10 @@ export class FournisseursListComponent implements OnInit {
   loadSuppliers(): void {
     this.loading = true;
 
-    const request = this.searchKeyword
-      ? this.supplierService.search(this.searchKeyword, this.currentPage, this.pageSize)
-      : this.supplierService.getAll(this.currentPage, this.pageSize);
-
-    request.subscribe({
+    this.supplierService.getAll().subscribe({
       next: (response) => {
-        this.suppliers = response.content;
-        this.totalPages = response.totalPages;
-        this.totalElements = response.totalElements;
+        this.suppliers = response;
+        this.totalElements = response.length;
         this.loading = false;
       },
       error: (error) => {
@@ -68,7 +63,7 @@ export class FournisseursListComponent implements OnInit {
   }
 
   deleteSupplier(supplier: Supplier): void {
-    if (confirm(`Voulez-vous vraiment supprimer le fournisseur "${supplier.raisonSociale}" ?`)) {
+    if (confirm(`Voulez-vous vraiment supprimer le fournisseur "${supplier.companyName}" ?`)) {
       this.supplierService.delete(supplier.id).subscribe({
         next: () => {
           this.loadSuppliers();

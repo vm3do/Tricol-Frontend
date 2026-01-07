@@ -92,13 +92,13 @@
               @for (supplier of suppliers; track supplier.id) {
                 <tr class="hover:bg-blue-50 transition-colors">
                   <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="font-semibold text-gray-900">{{ supplier.raisonSociale }}</div>
+                    <div class="font-semibold text-gray-900">{{ supplier.companyName }}</div>
                     <div class="text-sm text-gray-500">ICE: {{ supplier.ice }}</div>
                   </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ supplier.ville }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ supplier.personneContact }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ supplier.city }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ supplier.contactPerson }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ supplier.email }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ supplier.telephone }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-gray-700">{{ supplier.phone }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-center">
                     <div class="flex items-center justify-center gap-2">
                       <button
