@@ -84,6 +84,10 @@ export class FournisseursListComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/dashboard']);
   }
+
+  getDisplayEnd(): number {
+    return Math.min((this.currentPage + 1) * this.pageSize, this.totalElements);
+  }
 }
 
 
