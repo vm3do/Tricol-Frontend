@@ -63,7 +63,7 @@
     </div>
 
     <!-- Loading State -->
-    @if (loading) {
+    @if (loading()) {
       <div class="bg-white rounded-xl shadow-lg p-12 text-center border border-amber-200">
         <svg class="animate-spin h-12 w-12 mx-auto text-blue-600" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -74,7 +74,7 @@
     }
 
     <!-- Suppliers Table -->
-    @if (!loading && suppliers.length > 0) {
+    @if (!loading() && suppliers().length > 0) {
       <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-amber-200">
         <div class="overflow-x-auto">
           <table class="w-full">
@@ -89,7 +89,7 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
-              @for (supplier of suppliers; track supplier.id) {
+              @for (supplier of suppliers(); track supplier.id) {
                 <tr class="hover:bg-blue-50 transition-colors">
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="font-semibold text-gray-900">{{ supplier.companyName }}</div>
@@ -181,7 +181,7 @@
     }
 
     <!-- Empty State -->
-    @if (!loading && suppliers.length === 0) {
+    @if (!loading() && suppliers().length === 0) {
       <div class="bg-white rounded-xl shadow-lg p-12 text-center border border-amber-200">
         <svg class="w-20 h-20 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
