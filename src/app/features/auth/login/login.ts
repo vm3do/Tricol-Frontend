@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,7 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   loginForm: FormGroup;
   loading = false;
@@ -34,10 +35,12 @@ export class LoginComponent {
 
     this.loading = true;
     this.errorMessage = '';
+    this.cdr.detectChanges();
 
     this.authService.login(this.loginForm.value).subscribe({
       next: () => {
         this.loading = false;
+        this.cdr.detectChanges();
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
         this.router.navigate([returnUrl]);
       },
@@ -63,6 +66,7 @@ export class LoginComponent {
         }
 
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
