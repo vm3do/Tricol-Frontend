@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -14,6 +14,7 @@ export class RegisterComponent {
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   registerForm: FormGroup;
   loading = false;
@@ -42,6 +43,7 @@ export class RegisterComponent {
     this.loading = true;
     this.errorMessage = '';
     this.successMessage = '';
+    this.cdr.detectChanges();
 
     const { confirmPassword, ...registerData } = this.registerForm.value;
 
@@ -50,6 +52,7 @@ export class RegisterComponent {
         this.successMessage = 'Compte créé avec succès ! Vous pouvez maintenant vous connecter.';
         this.registerForm.reset();
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.log('Registration error:', error);
@@ -71,6 +74,7 @@ export class RegisterComponent {
         }
 
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }

@@ -225,6 +225,90 @@ Angular 20 uses **standalone components** - no NgModule needed! We removed `core
 
 ---
 
+## 🔧 Day 3 - January 7, 2026
+
+### Step 7: Suppliers Module - List Page (09:23:47 - 11:32:15)
+
+**Models Created:**
+- `Supplier` interface with backend field names
+- `SupplierCreateRequest` - for creating suppliers
+- `SupplierUpdateRequest` - for updating suppliers
+
+**Services Created:**
+- `SupplierService` with CRUD methods:
+  - `getAll()` - Get all suppliers
+  - `getById(id)` - Get supplier by ID
+  - `create(supplier)` - Create new supplier
+  - `update(id, supplier)` - Update supplier
+  - `delete(id)` - Delete supplier
+  - `search(keyword)` - Search suppliers
+
+**Components Created:**
+- `FournisseursListComponent` - Suppliers list with table
+
+**Features:**
+- ✅ Table view with all supplier data
+- ✅ Search functionality (prepared for backend)
+- ✅ Edit, Delete action buttons
+- ✅ Empty state when no suppliers
+- ✅ Loading state with spinner
+- ✅ Beautiful blue-themed design
+
+**Key Fixes:**
+- Fixed API endpoint: `/api/fournisseurs` → `/api/v1/suppliers`
+- Fixed field names to match backend: `companyName`, `contactPerson`, `phone`
+- Implemented JWT Interceptor to add Bearer token
+- Added manual change detection for proper UI updates
+- Permission-based access control system
+
+**Commits:**
+- `feat: add suppliers list page with search and pagination` (09:23:47)
+- `fix: implement SupplierService and fix template Math issue` (09:35:18)
+- `debug: add console logs to track authentication issue` (09:47:32)
+- `fix: correct API endpoints, field names, and implement JWT interceptor` (10:15:33)
+- `feat: implement permission-based access control with string constants and fix suppliers list loading` (11:18:44)
+- `chore: remove debug console logs and clean up code` (11:32:15)
+
+---
+
+### Step 8: Suppliers Module - Create/Edit Form (14:25:33)
+
+**Components Created:**
+- `FournisseursFormComponent` - Create and edit suppliers
+
+**Form Features:**
+```typescript
+Fields:
+- Company Name (required, min 3 chars)
+- Address (required)
+- City (required)
+- Contact Person (required)
+- Email (required, email format)
+- Phone (required)
+- ICE (required, min 10 chars)
+
+Functionality:
+- Reactive Forms with validation
+- Real-time validation feedback
+- Red borders and backgrounds for errors
+- Disabled submit button when invalid
+- Loading state during save
+- Error handling with specific messages
+- Auto-detect create vs edit mode from URL
+- Load existing data in edit mode
+```
+
+**Routes Added:**
+```typescript
+/fournisseurs/new → Create new supplier
+/fournisseurs/edit/:id → Edit existing supplier
+```
+
+**Commit:**
+- `feat: add supplier create/edit form with validation` (14:25:33)
+
+---
+
 ## 📖 Angular CLI Quick Reference
 
 **Components Created:**
