@@ -12,11 +12,18 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'fournisseurs',
+    loadComponent: () => import('./features/fournisseurs/fournisseurs-list/fournisseurs-list').then(m => m.FournisseursListComponent),
+    canActivate: [authGuard]
+  },
+  {
     path: '',
     redirectTo: 'auth/login',
     pathMatch: 'full'
   }
 ];
+
+
 
 
 

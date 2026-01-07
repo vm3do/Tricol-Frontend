@@ -191,6 +191,10 @@ export class CoreModule { }
 - `fix: downgrade to Tailwind v3 for Angular compatibility` (14:55:33)
 - `fix: clean app.html template to only contain router outlet` (15:12:44)
 - `feat: redesign auth pages with professional stock management theme and fix router links` (16:38:22)
+- `fix: improve error handling and resolve loading state issue on login` (17:15:48)
+- `feat: add dashboard page with welcome screen and stats cards` (17:42:31)
+- `fix: correct dashboard component class name and add logout functionality` (17:48:55)
+- `chore: remove unnecessary NgModule files for Angular 20 standalone architecture` (18:05:22)
 
 **Bugs Fixed (16:38:22):**
 1. **RouterLink not working** - Added `RouterLink` to component imports
@@ -208,6 +212,16 @@ export class CoreModule { }
 - Professional shadow and border effects
 - Mobile-responsive design maintained
 - Copyright footer
+
+**Dashboard Features (17:42:31):**
+- Welcome screen after login
+- 4 stat cards (Fournisseurs, Produits, Commandes, Stock Critique)
+- Logout button in header
+- List of upcoming modules
+- Protected by AuthGuard
+
+**Architecture Note:**
+Angular 20 uses **standalone components** - no NgModule needed! We removed `core-module.ts` and `shared-module.ts` as they're unnecessary. Components import dependencies directly in their decorator.
 
 ---
 
