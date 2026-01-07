@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectorRef } from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -15,10 +15,9 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-  private readonly cdr = inject(ChangeDetectorRef);
 
   loginForm: FormGroup;
-  loading = false;
+  loading = signal(false);
   errorMessage = '';
 
   constructor() {
@@ -33,14 +32,12 @@ export class LoginComponent {
       return;
     }
 
-    this.loading = true;
+    this.loading.set(true);
     this.errorMessage = '';
-    this.cdr.detectChanges();
 
     this.authService.login(this.loginForm.value).subscribe({
       next: () => {
-        this.loading = false;
-        this.cdr.detectChanges();
+        this.loading.set(false);
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
         this.router.navigate([returnUrl]);
       },
@@ -65,8 +62,7 @@ export class LoginComponent {
           this.errorMessage = error.error?.message || 'Une erreur est survenue lors de la connexion.';
         }
 
-        this.loading = false;
-        this.cdr.detectChanges();
+        this.loading.set(false);
       }
     });
   }
