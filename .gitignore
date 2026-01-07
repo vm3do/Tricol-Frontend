@@ -43,6 +43,6 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 
+# Backend API Documentation (internal use only)
 FRONTEND_API_DOCUMENTATION.md
-LEARNING_JOURNEY.md
 
