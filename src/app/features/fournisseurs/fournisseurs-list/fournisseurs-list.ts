@@ -30,17 +30,14 @@ export class FournisseursListComponent implements OnInit {
   }
 
   loadSuppliers(): void {
-    console.log('Loading suppliers...');
     this.loading = true;
     this.cdr.detectChanges();
 
     this.supplierService.getAll().subscribe({
       next: (response) => {
-        console.log('Suppliers loaded:', response);
         this.suppliers = response;
         this.totalElements = response.length;
         this.loading = false;
-        console.log('Loading set to false, suppliers count:', this.suppliers.length);
         this.cdr.detectChanges();
       },
       error: (error) => {
