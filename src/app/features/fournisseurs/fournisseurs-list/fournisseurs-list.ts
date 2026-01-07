@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +14,7 @@ import { Supplier } from '../../../core/models/supplier.model';
 export class FournisseursListComponent implements OnInit {
   private readonly supplierService = inject(SupplierService);
   private readonly router = inject(Router);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   suppliers: Supplier[] = [];
   loading = false;
@@ -29,17 +30,23 @@ export class FournisseursListComponent implements OnInit {
   }
 
   loadSuppliers(): void {
+    console.log('Loading suppliers...');
     this.loading = true;
+    this.cdr.detectChanges();
 
     this.supplierService.getAll().subscribe({
       next: (response) => {
+        console.log('Suppliers loaded:', response);
         this.suppliers = response;
         this.totalElements = response.length;
         this.loading = false;
+        console.log('Loading set to false, suppliers count:', this.suppliers.length);
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('Error loading suppliers:', error);
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
