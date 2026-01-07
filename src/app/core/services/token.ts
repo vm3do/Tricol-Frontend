@@ -40,7 +40,13 @@ export class TokenService {
 
   hasValidToken(): boolean {
     const token = this.getAccessToken();
-    return token !== null && !this.isTokenExpired(token);
+    console.log('TokenService - Token exists:', !!token);
+    if (!token) {
+      return false;
+    }
+    const isExpired = this.isTokenExpired(token);
+    console.log('TokenService - Token expired:', isExpired);
+    return token !== null && !isExpired;
   }
 }
 
