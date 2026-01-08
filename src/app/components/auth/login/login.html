@@ -1,0 +1,94 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+  <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-sm w-full max-w-sm">
+    <!-- Logo -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-12 h-12 bg-primary-600 rounded-lg mb-4">
+        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+        </svg>
+      </div>
+      <h1 class="text-xl font-bold text-gray-800">TRICOL</h1>
+      <p class="text-xs text-gray-400 mt-1">Gestion des Approvisionnements</p>
+    </div>
+
+    <h2 class="text-lg font-semibold text-gray-700 mb-6">Connexion</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-600 mb-1.5">Adresse Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="exemple@tricol.com"
+          class="input"
+          [class.input-error]="email?.invalid && email?.touched"
+        />
+        @if (email?.invalid && email?.touched) {
+          <p class="mt-1 text-xs text-red-500">
+            @if (email?.errors?.['required']) { L'email est requis }
+            @if (email?.errors?.['email']) { Format d'email invalide }
+          </p>
+        }
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-600 mb-1.5">Mot de Passe</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="••••••••"
+          class="input"
+          [class.input-error]="password?.invalid && password?.touched"
+        />
+        @if (password?.invalid && password?.touched) {
+          <p class="mt-1 text-xs text-red-500">
+            @if (password?.errors?.['required']) { Le mot de passe est requis }
+            @if (password?.errors?.['minlength']) { Minimum 6 caractères }
+          </p>
+        }
+      </div>
+
+      <!-- Error -->
+      @if (error$ | async; as errorMsg) {
+        <div class="flex items-center gap-2 px-3 py-2 bg-red-50 border border-red-200 rounded-md">
+          <svg class="w-4 h-4 text-red-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+          </svg>
+          <span class="text-sm text-red-700">{{ errorMsg }}</span>
+        </div>
+      }
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        [disabled]="loginForm.invalid || (loading$ | async)"
+        class="btn-primary w-full py-2.5"
+      >
+        @if (loading$ | async) {
+          <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Connexion en cours...
+        } @else {
+          Se Connecter
+        }
+      </button>
+    </form>
+
+    <div class="mt-5 text-center">
+      <p class="text-sm text-gray-500">
+        Pas encore de compte ?
+        <a routerLink="/auth/register" class="text-primary-600 hover:text-primary-700 font-medium">Créer un compte</a>
+      </p>
+    </div>
+
+    <div class="mt-6 pt-4 border-t border-gray-100 text-center">
+      <p class="text-xs text-gray-400">© 2026 TRICOL. Tous droits réservés.</p>
+    </div>
+  </div>
+</div>
