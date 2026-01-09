@@ -1,0 +1,133 @@
+<div>
+  <!-- Page Title -->
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Tableau de Bord</h1>
+    <p class="text-sm text-gray-500 mt-1">Vue d'ensemble de votre activité</p>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+    <!-- Fournisseurs -->
+    <a routerLink="/fournisseurs" class="card p-5 hover:border-primary-200 transition-colors group cursor-pointer">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm text-gray-500">Fournisseurs</p>
+          <p class="text-2xl font-bold text-gray-800 mt-1">{{ supplierCount$ | async }}</p>
+        </div>
+        <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center group-hover:bg-blue-100 transition-colors">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- Produits -->
+    <a routerLink="/products" class="card p-5 hover:border-primary-200 transition-colors group cursor-pointer">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm text-gray-500">Produits</p>
+          <p class="text-2xl font-bold text-gray-800 mt-1">{{ productCount$ | async }}</p>
+        </div>
+        <div class="w-10 h-10 bg-primary-50 rounded-lg flex items-center justify-center group-hover:bg-primary-100 transition-colors">
+          <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+          </svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- Commandes -->
+    <a routerLink="/orders" class="card p-5 hover:border-primary-200 transition-colors group cursor-pointer">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm text-gray-500">Commandes</p>
+          <p class="text-2xl font-bold text-gray-800 mt-1">{{ orderCount$ | async }}</p>
+        </div>
+        <div class="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center group-hover:bg-amber-100 transition-colors">
+          <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+          </svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- Alertes Stock -->
+    <a routerLink="/stock" class="card p-5 hover:border-red-200 transition-colors group cursor-pointer">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm text-gray-500">Alertes Stock</p>
+          <p class="text-2xl font-bold text-gray-800 mt-1">{{ alertCount$ | async }}</p>
+        </div>
+        <div class="w-10 h-10 bg-red-50 rounded-lg flex items-center justify-center group-hover:bg-red-100 transition-colors">
+          <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+    <!-- Pending Orders -->
+    <div class="card">
+      <div class="px-5 py-4 border-b border-gray-100">
+        <h3 class="text-sm font-semibold text-gray-700">Commandes en Attente</h3>
+      </div>
+      <div class="p-5">
+        @if ((pendingOrders$ | async)?.length) {
+          <div class="space-y-3">
+            @for (order of pendingOrders$ | async; track order.id) {
+              <div class="flex items-center justify-between py-2">
+                <div>
+                  <p class="text-sm font-medium text-gray-700">{{ order.supplier.companyName }}</p>
+                  <p class="text-xs text-gray-400">{{ order.orderDate }}</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="badge-yellow">En attente</span>
+                  <span class="text-sm font-medium text-gray-800">{{ order.totalAmount | number:'1.2-2' }} MAD</span>
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="text-sm text-gray-400 text-center py-4">Aucune commande en attente</p>
+        }
+      </div>
+    </div>
+
+    <!-- Quick Access -->
+    <div class="card">
+      <div class="px-5 py-4 border-b border-gray-100">
+        <h3 class="text-sm font-semibold text-gray-700">Accès Rapide</h3>
+      </div>
+      <div class="p-5 grid grid-cols-2 gap-3">
+        <a routerLink="/fournisseurs/new" class="flex items-center gap-3 p-3 rounded-md hover:bg-gray-50 transition-colors text-sm text-gray-600">
+          <svg class="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          Nouveau Fournisseur
+        </a>
+        <a routerLink="/products/new" class="flex items-center gap-3 p-3 rounded-md hover:bg-gray-50 transition-colors text-sm text-gray-600">
+          <svg class="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          Nouveau Produit
+        </a>
+        <a routerLink="/orders/new" class="flex items-center gap-3 p-3 rounded-md hover:bg-gray-50 transition-colors text-sm text-gray-600">
+          <svg class="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          Nouvelle Commande
+        </a>
+        <a routerLink="/stock-outbound" class="flex items-center gap-3 p-3 rounded-md hover:bg-gray-50 transition-colors text-sm text-gray-600">
+          <svg class="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+          </svg>
+          Bons de Sortie
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
