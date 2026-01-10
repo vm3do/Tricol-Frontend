@@ -1,0 +1,123 @@
+<div>
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-800">{{ isEditMode ? 'Modifier' : 'Nouveau' }} Fournisseur</h1>
+      <p class="text-sm text-gray-500 mt-1">{{ isEditMode ? "Modifier les informations du fournisseur" : "Ajouter un nouveau fournisseur" }}</p>
+    </div>
+    <button (click)="goBack()" class="btn-secondary">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+      Retour
+    </button>
+  </div>
+
+  @if (error$ | async; as errorMsg) {
+    <div class="flex items-center gap-2 px-3 py-2 mb-4 bg-red-50 border border-red-200 rounded-md">
+      <svg class="w-4 h-4 text-red-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+      </svg>
+      <span class="text-sm text-red-700">{{ errorMsg }}</span>
+    </div>
+  }
+
+  <div class="card p-6">
+    <form [formGroup]="supplierForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- Company Name -->
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1.5">Nom de l'Entreprise <span class="text-red-400">*</span></label>
+          <input formControlName="companyName" class="input" [class.input-error]="companyName?.invalid && companyName?.touched" placeholder="Ex: Textile Maroc SARL" />
+          @if (companyName?.touched && companyName?.invalid) {
+            @if (companyName?.hasError('required')) {
+              <p class="mt-1 text-xs text-red-500">Le nom de l'entreprise est requis</p>
+            } @else if (companyName?.hasError('minlength')) {
+              <p class="mt-1 text-xs text-red-500">Minimum 3 caractères</p>
+            }
+          }
+        </div>
+
+        <!-- ICE -->
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1.5">ICE <span class="text-red-400">*</span></label>
+          <input formControlName="ice" class="input" [class.input-error]="ice?.invalid && ice?.touched" placeholder="Ex: 002345678000012" maxlength="15" />
+          @if (ice?.touched && ice?.invalid) {
+            @if (ice?.hasError('required')) {
+              <p class="mt-1 text-xs text-red-500">L'ICE est requis</p>
+            } @else if (ice?.hasError('pattern')) {
+              <p class="mt-1 text-xs text-red-500">L'ICE doit contenir exactement 15 chiffres</p>
+            }
+          }
+        </div>
+
+        <!-- Contact Person -->
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1.5">Personne de Contact <span class="text-red-400">*</span></label>
+          <input formControlName="contactPerson" class="input" [class.input-error]="contactPerson?.invalid && contactPerson?.touched" placeholder="Ex: Ahmed Benali" />
+          @if (contactPerson?.touched && contactPerson?.invalid) {
+            @if (contactPerson?.hasError('required')) {
+              <p class="mt-1 text-xs text-red-500">Le nom du contact est requis</p>
+            } @else if (contactPerson?.hasError('minlength')) {
+              <p class="mt-1 text-xs text-red-500">Minimum 3 caractères</p>
+            }
+          }
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1.5">Email <span class="text-red-400">*</span></label>
+          <input formControlName="email" type="email" class="input" [class.input-error]="email?.invalid && email?.touched" placeholder="contact@exemple.ma" />
+          @if (email?.touched && email?.invalid) {
+            @if (email?.hasError('required')) {
+              <p class="mt-1 text-xs text-red-500">L'email est requis</p>
+            } @else if (email?.hasError('email')) {
+              <p class="mt-1 text-xs text-red-500">Format d'email invalide (ex: nom&#64;domaine.ma)</p>
+            }
+          }
+        </div>
+
+        <!-- Phone -->
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1.5">Téléphone <span class="text-red-400">*</span></label>
+          <input formControlName="phone" class="input" [class.input-error]="phone?.invalid && phone?.touched" placeholder="+212522345678" />
+          @if (phone?.touched && phone?.invalid) {
+            @if (phone?.hasError('required')) {
+              <p class="mt-1 text-xs text-red-500">Le téléphone est requis</p>
+            } @else if (phone?.hasError('pattern')) {
+              <p class="mt-1 text-xs text-red-500">Format invalide. Utilisez : +212XXXXXXXXX ou 0XXXXXXXXX</p>
+            }
+          }
+        </div>
+
+        <!-- City -->
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1.5">Ville <span class="text-red-400">*</span></label>
+          <input formControlName="city" class="input" [class.input-error]="city?.invalid && city?.touched" placeholder="Ex: Casablanca" />
+          @if (city?.touched && city?.invalid) {
+            <p class="mt-1 text-xs text-red-500">La ville est requise</p>
+          }
+        </div>
+      </div>
+
+      <!-- Address -->
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1.5">Adresse <span class="text-red-400">*</span></label>
+        <input formControlName="address" class="input" [class.input-error]="address?.invalid && address?.touched" placeholder="Ex: Zone Industrielle Ain Sebaa" />
+        @if (address?.touched && address?.invalid) {
+          @if (address?.hasError('required')) {
+            <p class="mt-1 text-xs text-red-500">L'adresse est requise</p>
+          } @else if (address?.hasError('minlength')) {
+            <p class="mt-1 text-xs text-red-500">Minimum 5 caractères</p>
+          }
+        }
+      </div>
+
+      <div class="flex justify-end gap-3 pt-4 border-t border-gray-100">
+        <button type="button" (click)="goBack()" class="btn-secondary">Annuler</button>
+        <button type="submit" [disabled]="supplierForm.invalid || (loading$ | async)" class="btn-primary">
+          @if (loading$ | async) { Enregistrement... } @else { {{ isEditMode ? 'Mettre à Jour' : 'Enregistrer' }} }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
