@@ -1,0 +1,15 @@
+<div class="flex h-screen overflow-hidden">
+  @if (sidebarOpen()) {
+    <div class="fixed inset-0 bg-black/40 z-20 lg:hidden" (click)="closeSidebar()"></div>
+  }
+
+  <app-sidebar [isOpen]="sidebarOpen()"></app-sidebar>
+
+  <div class="flex-1 lg:ml-60 flex flex-col overflow-hidden">
+    <app-header (menuToggle)="toggleSidebar()"></app-header>
+
+    <main class="flex-1 overflow-y-auto bg-gray-50 p-4 md:p-6">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
