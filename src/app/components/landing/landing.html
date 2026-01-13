@@ -1,0 +1,336 @@
+<div class="min-h-screen bg-white font-sans">
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+          </svg>
+        </div>
+        <span class="text-lg font-bold text-gray-800 tracking-tight">TRICOL</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-sm text-gray-500">
+        <a href="#features" class="hover:text-gray-800 transition-colors">Fonctionnalités</a>
+        <a href="#roles" class="hover:text-gray-800 transition-colors">Rôles</a>
+        <a href="#workflow" class="hover:text-gray-800 transition-colors">Processus</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        @if (isLoggedIn) {
+          <a routerLink="/dashboard" class="btn-primary text-sm">
+            Tableau de Bord
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+          </a>
+        } @else {
+          <a routerLink="/auth/login" class="text-sm text-gray-600 hover:text-gray-800 font-medium transition-colors px-4 py-2">Connexion</a>
+          <a routerLink="/auth/register" class="btn-primary text-sm">Créer un Compte</a>
+        }
+      </div>
+    </div>
+  </header>
+
+  <section class="relative pt-16 overflow-hidden">
+    <div class="relative h-[560px]">
+      <img src="hero-warehouse.png" alt="" class="absolute inset-0 w-full h-full object-cover" />
+      <div class="absolute inset-0 bg-primary-900/80"></div>
+      
+      <div class="relative z-10 max-w-6xl mx-auto px-6 h-full flex items-center">
+        <div class="max-w-xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/10 text-white rounded-full text-xs font-medium mb-6 backdrop-blur-md border border-white/20">
+            <span class="w-1.5 h-1.5 bg-primary-400 rounded-full animate-pulse"></span>
+            Gestion des Approvisionnements
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-white leading-tight mb-5">
+            Pilotez votre chaîne d'approvisionnement avec précision
+          </h1>
+          <p class="text-base text-white/80 leading-relaxed mb-8 max-w-md">
+            Centralisez fournisseurs, produits, commandes et stocks. Contrôle d'accès par rôles. Interface épurée et performante.
+          </p>
+          <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            @if (isLoggedIn) {
+              <a routerLink="/dashboard" class="inline-flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold px-6 py-3.5 rounded-lg text-sm hover:bg-gray-50 transition-colors w-full sm:w-auto">
+                Accéder au Tableau de Bord
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+              </a>
+            } @else {
+              <a routerLink="/auth/register" class="inline-flex items-center justify-center gap-2 bg-white text-primary-700 font-semibold px-6 py-3.5 rounded-lg text-sm hover:bg-gray-50 transition-colors w-full sm:w-auto">
+                Commencer
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+              </a>
+              <a routerLink="/auth/login" class="inline-flex items-center justify-center gap-2 text-white font-medium px-6 py-3.5 rounded-lg text-sm border border-white/30 hover:bg-white/10 transition-colors w-full sm:w-auto">Se Connecter</a>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white border-b border-gray-100 -mt-8 relative z-20">
+    <div class="max-w-5xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 bg-white rounded-2xl shadow-xl shadow-gray-200/50 p-6 md:p-8">
+      <div class="flex items-center gap-4 group">
+        <div class="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center group-hover:bg-primary-100 transition-colors shrink-0">
+          <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-800 tracking-tight">4</p>
+          <p class="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mt-0.5">Rôles d'accès</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 group">
+        <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center group-hover:bg-blue-100 transition-colors shrink-0">
+          <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-800 tracking-tight">22</p>
+          <p class="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mt-0.5">Permissions</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 group">
+        <div class="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center group-hover:bg-amber-100 transition-colors shrink-0">
+          <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-800 tracking-tight">FIFO</p>
+          <p class="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mt-0.5">Méthode Stock</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 group">
+        <div class="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center group-hover:bg-teal-100 transition-colors shrink-0">
+          <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+        </div>
+        <div>
+          <p class="text-2xl font-bold text-gray-800 tracking-tight">100%</p>
+          <p class="text-[11px] font-semibold text-gray-400 uppercase tracking-widest mt-0.5">Traçabilité</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="py-24 px-6 bg-gray-50">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="text-xs font-bold text-primary-600 uppercase tracking-widest mb-3">Fonctionnalités Clés</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">L'essentiel pour votre supply chain</h2>
+        <p class="text-gray-500 max-w-lg mx-auto text-base">Un contrôle total sur vos flux, du fournisseur jusqu'à l'entrepôt, sans complexité inutile.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        <div class="group relative h-72 md:h-80 rounded-2xl overflow-hidden cursor-default shadow-sm hover:shadow-xl transition-all duration-300">
+          <img src="feature_fournisseurs.png" alt="Fournisseurs" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-primary-900/80 group-hover:bg-primary-900/70 transition-colors duration-300"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <h3 class="text-2xl font-bold text-white mb-2">Réseau Fournisseurs</h3>
+            <p class="text-sm text-primary-100 leading-relaxed max-w-sm">Gérez vos partenariats avec précision. Centralisez les contacts, identifiants ICE, et l'historique complet de vos achats.</p>
+          </div>
+        </div>
+
+        <div class="group relative h-72 md:h-80 rounded-2xl overflow-hidden cursor-default shadow-sm hover:shadow-xl transition-all duration-300">
+          <img src="feature_catalog.png" alt="Catalogue" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-primary-900/80 group-hover:bg-primary-900/70 transition-colors duration-300"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <h3 class="text-2xl font-bold text-white mb-2">Catalogue Centralisé</h3>
+            <p class="text-sm text-primary-100 leading-relaxed max-w-sm">Un référentiel unique pour tous vos produits. Suivez les prix unitaires, définissez des seuils de réapprovisionnement.</p>
+          </div>
+        </div>
+
+        <div class="group relative h-72 md:h-80 rounded-2xl overflow-hidden cursor-default shadow-sm hover:shadow-xl transition-all duration-300">
+          <img src="feature_orders.png" alt="Commandes" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-primary-900/80 group-hover:bg-primary-900/70 transition-colors duration-300"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <h3 class="text-2xl font-bold text-white mb-2">Pilotage Commandes</h3>
+            <p class="text-sm text-primary-100 leading-relaxed max-w-sm">De la création à la validation, jusqu'à la réception. Un cycle de vie traçable et sécurisé pour chaque commande.</p>
+          </div>
+        </div>
+
+        <div class="group relative h-72 md:h-80 rounded-2xl overflow-hidden cursor-default shadow-sm hover:shadow-xl transition-all duration-300">
+          <img src="feature_warehouse.png" alt="Entrepôt" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+          <div class="absolute inset-0 bg-primary-900/80 group-hover:bg-primary-900/70 transition-colors duration-300"></div>
+          <div class="absolute inset-0 p-8 flex flex-col justify-end">
+            <h3 class="text-2xl font-bold text-white mb-2">Stock & Sorties</h3>
+            <p class="text-sm text-primary-100 leading-relaxed max-w-sm">Visibilité en temps réel sur l'entrepôt. Sorties encadrées par atelier avec déduction automatique FIFO à la validation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="workflow" class="py-24 px-6 bg-white border-t border-b border-gray-100">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="text-xs font-bold text-primary-600 uppercase tracking-widest mb-3">Processus</p>
+        <h2 class="text-3xl font-bold text-gray-800 mb-4">Du fournisseur à la production</h2>
+        <p class="text-gray-500 max-w-md mx-auto text-base">Un flux clair et maîtrisé à chaque étape.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-0 relative">
+        <div class="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-gray-200"></div>
+
+        <div class="text-center relative">
+          <div class="w-10 h-10 bg-primary-600 shadow-md shadow-primary-600/20 text-white rounded-full flex items-center justify-center mx-auto text-sm font-bold relative z-10 transition-transform hover:scale-110">1</div>
+          <h4 class="text-sm font-bold text-gray-800 mt-5 mb-2">Commande</h4>
+          <p class="text-xs text-gray-500 max-w-[160px] mx-auto leading-relaxed">Le responsable achats crée la commande fournisseur</p>
+        </div>
+        <div class="text-center relative">
+          <div class="w-10 h-10 bg-primary-600 shadow-md shadow-primary-600/20 text-white rounded-full flex items-center justify-center mx-auto text-sm font-bold relative z-10 transition-transform hover:scale-110">2</div>
+          <h4 class="text-sm font-bold text-gray-800 mt-5 mb-2">Validation</h4>
+          <p class="text-xs text-gray-500 max-w-[160px] mx-auto leading-relaxed">La commande est vérifiée et son montant est validé</p>
+        </div>
+        <div class="text-center relative">
+          <div class="w-10 h-10 bg-primary-600 shadow-md shadow-primary-600/20 text-white rounded-full flex items-center justify-center mx-auto text-sm font-bold relative z-10 transition-transform hover:scale-110">3</div>
+          <h4 class="text-sm font-bold text-gray-800 mt-5 mb-2">Réception</h4>
+          <p class="text-xs text-gray-500 max-w-[160px] mx-auto leading-relaxed">Le magasinier inspecte la marchandise et met le stock à jour</p>
+        </div>
+        <div class="text-center relative">
+          <div class="w-10 h-10 bg-primary-600 shadow-md shadow-primary-600/20 text-white rounded-full flex items-center justify-center mx-auto text-sm font-bold relative z-10 transition-transform hover:scale-110">4</div>
+          <h4 class="text-sm font-bold text-gray-800 mt-5 mb-2">Production</h4>
+          <p class="text-xs text-gray-500 max-w-[160px] mx-auto leading-relaxed">L'atelier demande un bon de sortie, le magasinier valide et livre</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="roles" class="py-24 px-6 bg-gray-50">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="text-xs font-bold text-primary-600 uppercase tracking-widest mb-3">Contrôle d'accès</p>
+        <h2 class="text-3xl text-gray-800 font-bold mb-4">Chaque rôle à sa place</h2>
+        <p class="text-gray-500 max-w-md mx-auto text-base">Le système s'adapte automatiquement selon l'utilisateur connecté.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div class="bg-white rounded-xl border border-gray-200 p-6 hover:border-gray-300 hover:shadow-md transition-all">
+          <div class="flex items-center gap-3.5 mb-4">
+            <div class="w-10 h-10 bg-primary-50 rounded-full flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-sm font-bold text-gray-800">Administrateur</h3>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed mb-4 min-h-[40px]">Accès complet au système. Gère les comptes, bloque les accès, et lit les logs d'audit.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[10px] uppercase font-bold px-2 py-0.5 bg-primary-50 text-primary-700 rounded-md">Tous les Accès</span>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-200 p-6 hover:border-gray-300 hover:shadow-md transition-all">
+          <div class="flex items-center gap-3.5 mb-4">
+            <div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-sm font-bold text-gray-800">Resp. Achats</h3>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed mb-4 min-h-[40px]">Gère fournisseurs et produits. Crée, valide et annule les commandes B2B.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-medium px-2 py-1 bg-gray-50 border border-gray-100 text-gray-600 rounded-md">Fournisseurs</span>
+            <span class="text-[10px] font-medium px-2 py-1 bg-gray-50 border border-gray-100 text-gray-600 rounded-md">Produits</span>
+            <span class="text-[10px] font-medium px-2 py-1 bg-blue-50 text-blue-700 rounded-md">Commandes (Création)</span>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-200 p-6 hover:border-gray-300 hover:shadow-md transition-all">
+          <div class="flex items-center gap-3.5 mb-4">
+            <div class="w-10 h-10 bg-amber-50 rounded-full flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-sm font-bold text-gray-800">Magasinier</h3>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed mb-4 min-h-[40px]">Contrôle physique. Réceptionne, voit le stock disponible, et valide les sorties.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-medium px-2 py-1 bg-gray-50 border border-gray-100 text-gray-600 rounded-md">Stock Global</span>
+            <span class="text-[10px] font-medium px-2 py-1 bg-amber-50 text-amber-700 rounded-md">Commandes (Réception)</span>
+            <span class="text-[10px] font-medium px-2 py-1 bg-amber-50 text-amber-700 rounded-md">Bons de Sortie (Validation)</span>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-200 p-6 hover:border-gray-300 hover:shadow-md transition-all">
+          <div class="flex items-center gap-3.5 mb-4">
+            <div class="w-10 h-10 bg-purple-50 rounded-full flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-sm font-bold text-gray-800">Chef Atelier</h3>
+          </div>
+          <p class="text-xs text-gray-500 leading-relaxed mb-4 min-h-[40px]">Opérationnel. Affiche le catalogue produits et demande des matières premières.</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="text-[10px] font-medium px-2 py-1 bg-gray-50 border border-gray-100 text-gray-600 rounded-md">Produits (Lecture)</span>
+            <span class="text-[10px] font-medium px-2 py-1 bg-gray-50 border border-gray-100 text-gray-600 rounded-md">Stock (Lecture)</span>
+            <span class="text-[10px] font-medium px-2 py-1 bg-purple-50 text-purple-700 rounded-md">Bons de Sortie (Création)</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="py-24 px-6 bg-white border-t border-gray-100">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">Prêt à fiabiliser vos approvisionnements ?</h2>
+      <p class="text-base text-gray-500 mb-10 max-w-xl mx-auto">Rejoignez-nous et commencez à gérer fournisseurs, stock et commandes dans un réseau totalement unifié.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        @if (isLoggedIn) {
+          <a routerLink="/dashboard" class="btn-primary w-full sm:w-auto px-10 py-3.5 text-base">Aller au Tableau de Bord</a>
+        } @else {
+          <a routerLink="/auth/register" class="btn-primary w-full sm:w-auto px-10 py-3.5 text-base">Créer un Compte</a>
+          <a routerLink="/auth/login" class="btn-secondary w-full sm:w-auto px-10 py-3.5 text-base">Se Connecter</a>
+        }
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-900 border-t border-gray-800 text-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="py-16 grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
+        <div class="md:col-span-1">
+          <div class="flex items-center gap-2 mb-6">
+            <div class="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+              </svg>
+            </div>
+            <span class="text-xl font-bold tracking-tight">TRICOL</span>
+          </div>
+          <p class="text-sm text-gray-400 leading-relaxed max-w-[240px]">Système de gestion des approvisionnements industriel, avec règles FIFO intégrées et contrôle d'accès.</p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-6">Modules</h4>
+          <ul class="space-y-3 text-sm text-gray-400">
+            <li class="hover:text-primary-400 transition-colors cursor-default">Fournisseurs</li>
+            <li class="hover:text-primary-400 transition-colors cursor-default">Catalogue Produits</li>
+            <li class="hover:text-primary-400 transition-colors cursor-default">Commandes d'Achat</li>
+            <li class="hover:text-primary-400 transition-colors cursor-default">Entrepôt & Stock</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-6">Transverse</h4>
+          <ul class="space-y-3 text-sm text-gray-400">
+            <li class="hover:text-primary-400 transition-colors cursor-default">Bons de Sortie Production</li>
+            <li class="hover:text-primary-400 transition-colors cursor-default">Comptes Utilisateurs</li>
+            <li class="hover:text-primary-400 transition-colors cursor-default">Matrice Permission/Rôles</li>
+            <li class="hover:text-primary-400 transition-colors cursor-default">Journal d'Audit</li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-6">Accès</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a routerLink="/auth/login" class="text-gray-400 hover:text-white transition-colors">Connexion</a></li>
+            <li><a routerLink="/auth/register" class="text-gray-400 hover:text-white transition-colors">Inscription</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-gray-800 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-gray-500">© 2026 TRICOL. Propulsé par Spring Boot et Angular 21.</p>
+        <div class="flex items-center gap-5 text-lg text-gray-600">
+          <svg class="w-5 h-5 hover:text-gray-400 transition-colors cursor-pointer" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
