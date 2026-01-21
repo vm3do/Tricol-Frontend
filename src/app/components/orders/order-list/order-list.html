@@ -1,0 +1,79 @@
+<div>
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-800">Commandes Fournisseurs</h1>
+      <p class="text-sm text-gray-500 mt-1">Gérer les commandes d'approvisionnement</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <!-- Search -->
+      <div class="relative hidden sm:block">
+        <svg class="absolute left-2.5 top-2.5 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+        <input type="text" (input)="onSearch($event)" placeholder="Rechercher commande..." class="w-64 pl-8 pr-3 py-2 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all shadow-sm">
+      </div>
+      @if (has(P.CREATE_ORDER)) {
+        <a routerLink="/orders/new" class="btn-primary">
+          <svg class="w-4 h-4 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          <span class="hidden sm:inline">Nouvelle Commande</span>
+          <span class="sm:hidden">Nouvelle</span>
+        </a>
+      }
+    </div>
+  </div>
+
+  <div class="card overflow-hidden">
+    <table class="w-full">
+      <thead class="bg-gray-50 border-b border-gray-200">
+        <tr>
+          <th class="table-header">#</th>
+          <th class="table-header">Fournisseur</th>
+          <th class="table-header">Date</th>
+          <th class="table-header">Montant</th>
+          <th class="table-header">Statut</th>
+          <th class="table-header text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        @if (loading$ | async) {
+          <tr><td colspan="6" class="px-4 py-8 text-center text-sm text-gray-400">Chargement...</td></tr>
+        } @else {
+          @for (order of filteredOrders(); track order.id) {
+            <tr class="hover:bg-gray-50 transition-colors">
+              <td class="table-cell font-mono text-xs text-gray-500">{{ order.id }}</td>
+              <td class="table-cell font-medium text-gray-800">{{ order.supplier.companyName }}</td>
+              <td class="table-cell">{{ order.orderDate | date:'dd/MM/yyyy' }}</td>
+              <td class="table-cell font-medium">{{ order.totalAmount | number:'1.2-2' }} MAD</td>
+              <td class="table-cell">
+                <span [class]="getStatusClass(order.status)">{{ getStatusLabel(order.status) }}</span>
+              </td>
+              <td class="table-cell text-right">
+                <div class="flex items-center justify-end gap-1">
+                  @if (order.status === 'PENDING' && has(P.VALIDATE_ORDER)) {
+                    <button (click)="validateOrder(order.id)" class="btn-ghost p-1.5 text-blue-600 hover:bg-blue-50" title="Valider">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"></path></svg>
+                    </button>
+                  }
+                  @if (order.status === 'VALIDATED' && has(P.RECEIVE_ORDER)) {
+                    <button (click)="receiveOrder(order.id)" class="btn-ghost p-1.5 text-primary-600 hover:bg-primary-50" title="Réceptionner">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"></path></svg>
+                    </button>
+                  }
+                  @if (order.status !== 'DELIVERED' && has(P.CANCEL_ORDER)) {
+                    <button (click)="cancelOrder(order.id)" class="btn-ghost p-1.5 text-red-500 hover:bg-red-50" title="Annuler">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                  }
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr><td colspan="6" class="px-4 py-8 text-center text-sm text-gray-400">Aucune commande trouvée</td></tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
