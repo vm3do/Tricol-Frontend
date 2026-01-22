@@ -1,0 +1,63 @@
+<div>
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">Stock</h1>
+    <p class="text-sm text-gray-500 mt-1">Vue d'ensemble du stock et des alertes</p>
+  </div>
+
+  @if (loading$ | async) {
+    <div class="text-center py-12 text-sm text-gray-400">Chargement...</div>
+  } @else if (summary$ | async; as summary) {
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+      <div class="card p-5">
+        <p class="text-sm text-gray-500">Total Produits</p>
+        <p class="text-2xl font-bold text-gray-800 mt-1">{{ summary.totalProducts }}</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-sm text-gray-500">Valeur Totale</p>
+        <p class="text-2xl font-bold text-gray-800 mt-1">{{ summary.totalValue | number:'1.2-2' }} MAD</p>
+      </div>
+      <div class="card p-5">
+        <p class="text-sm text-gray-500">Alertes Stock</p>
+        <p class="text-2xl font-bold mt-1" [class.text-red-600]="summary.alertCount > 0" [class.text-gray-800]="summary.alertCount === 0">{{ summary.alertCount }}</p>
+      </div>
+    </div>
+
+    <!-- Stock Table -->
+    <div class="card overflow-hidden">
+      <div class="px-5 py-4 border-b border-gray-100">
+        <h3 class="text-sm font-semibold text-gray-700">Niveaux de Stock</h3>
+      </div>
+      <table class="w-full">
+        <thead class="bg-gray-50 border-b border-gray-200">
+          <tr>
+            <th class="table-header">Référence</th>
+            <th class="table-header">Produit</th>
+            <th class="table-header">Quantité</th>
+            <th class="table-header">Valeur</th>
+            <th class="table-header">Statut</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          @for (stock of summary.stocks; track stock.productId) {
+            <tr class="hover:bg-gray-50 transition-colors">
+              <td class="table-cell font-mono text-xs text-primary-600">{{ stock.productReference }}</td>
+              <td class="table-cell font-medium text-gray-800">{{ stock.productName }}</td>
+              <td class="table-cell">{{ stock.currentStock }}</td>
+              <td class="table-cell">{{ stock.stockValue | number:'1.2-2' }} MAD</td>
+              <td class="table-cell">
+                @if (stock.isLowStock) {
+                  <span class="badge-red">Stock Bas</span>
+                } @else {
+                  <span class="badge-green">Normal</span>
+                }
+              </td>
+            </tr>
+          } @empty {
+            <tr><td colspan="5" class="px-4 py-8 text-center text-sm text-gray-400">Aucune donnée de stock</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
