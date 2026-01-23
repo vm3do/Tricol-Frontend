@@ -1,0 +1,47 @@
+<div>
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-800">Journal d'Audit</h1>
+      <p class="text-sm text-gray-500 mt-1">Historique des actions effectuées dans le système</p>
+    </div>
+    <div class="relative hidden sm:block">
+      <svg class="absolute left-2.5 top-2.5 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+      <input type="text" (input)="onSearch($event)" placeholder="Rechercher événement..." class="w-64 pl-8 pr-3 py-2 text-sm bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all shadow-sm">
+    </div>
+  </div>
+
+  <div class="card overflow-hidden">
+    <table class="w-full">
+      <thead class="bg-gray-50 border-b border-gray-200">
+        <tr>
+          <th class="table-header">#</th>
+          <th class="table-header">Action</th>
+          <th class="table-header">Entité</th>
+          <th class="table-header">ID Entité</th>
+          <th class="table-header">Utilisateur</th>
+          <th class="table-header">Date</th>
+          <th class="table-header">Détails</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        @for (log of filteredLogs(); track log.id) {
+          <tr class="hover:bg-gray-50 transition-colors">
+            <td class="table-cell font-mono text-xs text-gray-400">{{ log.id }}</td>
+            <td class="table-cell">
+              <span class="badge-blue text-[11px]">{{ log.action }}</span>
+            </td>
+            <td class="table-cell font-medium text-gray-800">{{ log.entityType }}</td>
+            <td class="table-cell font-mono text-xs">{{ log.entityId }}</td>
+            <td class="table-cell">{{ log.userName }}</td>
+            <td class="table-cell text-xs">{{ log.timestamp | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td class="table-cell text-xs text-gray-500 max-w-[200px] truncate">{{ log.details }}</td>
+          </tr>
+        } @empty {
+          <tr><td colspan="7" class="px-4 py-8 text-center text-sm text-gray-400">Aucune entrée dans le journal</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
